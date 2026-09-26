@@ -20,11 +20,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.nativead.MediaView;
-import com.google.android.gms.ads.nativead.NativeAdView;
+import com.google.android.libraries.ads.mobile.sdk.AdListener;
+import com.google.android.libraries.ads.mobile.sdk.AdLoader;
+import com.google.android.libraries.ads.mobile.sdk.LoadAdError;
+import com.google.android.libraries.ads.mobile.sdk.nativead.MediaView;
+import com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView;
 import com.solodroid.ads.sdk.R;
 import com.solodroid.ads.sdk.util.AdManagerTemplateView;
 import com.solodroid.ads.sdk.util.NativeTemplateStyle;
@@ -422,7 +422,7 @@ public class NativeAd {
         }
 
         @SuppressWarnings("ConstantConditions")
-        public void populateNativeAdView(com.google.android.gms.ads.nativead.NativeAd nativeAd, NativeAdView nativeAdView) {
+        public void populateNativeAdView(com.google.android.libraries.ads.mobile.sdk.nativead.NativeAd nativeAd, NativeAdView nativeAdView) {
 
             if (darkTheme) {
                 nativeAdViewContainer.setBackgroundColor(ContextCompat.getColor(activity, nativeBackgroundDark));

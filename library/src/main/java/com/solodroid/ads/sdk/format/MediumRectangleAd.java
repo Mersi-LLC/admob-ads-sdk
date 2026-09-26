@@ -13,10 +13,10 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.admanager.AdManagerAdView;
+import com.google.android.libraries.ads.mobile.sdk.AdListener;
+import com.google.android.libraries.ads.mobile.sdk.AdView;
+import com.google.android.libraries.ads.mobile.sdk.LoadAdError;
+import com.google.android.libraries.ads.mobile.sdk.admanager.AdManagerAdView;
 import com.solodroid.ads.sdk.R;
 import com.solodroid.ads.sdk.util.Tools;
 

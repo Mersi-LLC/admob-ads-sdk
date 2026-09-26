@@ -11,12 +11,12 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.admanager.AdManagerInterstitialAd;
-import com.google.android.gms.ads.admanager.AdManagerInterstitialAdLoadCallback;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.libraries.ads.mobile.sdk.AdError;
+import com.google.android.libraries.ads.mobile.sdk.FullScreenContentCallback;
+import com.google.android.libraries.ads.mobile.sdk.LoadAdError;
+import com.google.android.libraries.ads.mobile.sdk.admanager.AdManagerInterstitialAd;
+import com.google.android.libraries.ads.mobile.sdk.admanager.AdManagerInterstitialAdLoadCallback;
+import com.google.android.libraries.ads.mobile.sdk.interstitial.InterstitialAdLoadCallback;
 import com.solodroid.ads.sdk.util.OnInterstitialAdDismissedListener;
 import com.solodroid.ads.sdk.util.OnInterstitialAdShowedListener;
 import com.solodroid.ads.sdk.util.Tools;
@@ -27,7 +27,7 @@ public class InterstitialAd {
 
         private static final String TAG = "AdNetwork";
         private final Activity activity;
-        private com.google.android.gms.ads.interstitial.InterstitialAd adMobInterstitialAd;
+        private com.google.android.libraries.ads.mobile.sdk.interstitial.InterstitialAd adMobInterstitialAd;
         private AdManagerInterstitialAd adManagerInterstitialAd;
         private int retryAttempt;
         private int counter = 1;
@@ -156,9 +156,9 @@ public class InterstitialAd {
                 switch (adNetwork) {
                     case ADMOB:
                     case FAN_BIDDING_ADMOB:
-                        com.google.android.gms.ads.interstitial.InterstitialAd.load(activity, adMobInterstitialId, Tools.getAdRequest(activity, legacyGDPR), new InterstitialAdLoadCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.interstitial.InterstitialAd.load(activity, adMobInterstitialId, Tools.getAdRequest(activity, legacyGDPR), new InterstitialAdLoadCallback() {
                             @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.interstitial.InterstitialAd interstitialAd) {
+                            public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.interstitial.InterstitialAd interstitialAd) {
                                 adMobInterstitialAd = interstitialAd;
                                 adMobInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                                     @Override
@@ -167,7 +167,7 @@ public class InterstitialAd {
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
+                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.libraries.ads.mobile.sdk.AdError adError) {
                                         Log.d(TAG, "The ad failed to show.");
                                     }
 
@@ -249,9 +249,9 @@ public class InterstitialAd {
                 switch (backupAdNetwork) {
                     case ADMOB:
                     case FAN_BIDDING_ADMOB:
-                        com.google.android.gms.ads.interstitial.InterstitialAd.load(activity, adMobInterstitialId, Tools.getAdRequest(activity, legacyGDPR), new InterstitialAdLoadCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.interstitial.InterstitialAd.load(activity, adMobInterstitialId, Tools.getAdRequest(activity, legacyGDPR), new InterstitialAdLoadCallback() {
                             @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.interstitial.InterstitialAd interstitialAd) {
+                            public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.interstitial.InterstitialAd interstitialAd) {
                                 adMobInterstitialAd = interstitialAd;
                                 adMobInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                                     @Override
@@ -260,7 +260,7 @@ public class InterstitialAd {
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
+                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.libraries.ads.mobile.sdk.AdError adError) {
                                         Log.d(TAG, "The ad failed to show.");
                                     }
 
@@ -401,9 +401,9 @@ public class InterstitialAd {
                 switch (adNetwork) {
                     case ADMOB:
                     case FAN_BIDDING_ADMOB:
-                        com.google.android.gms.ads.interstitial.InterstitialAd.load(activity, adMobInterstitialId, Tools.getAdRequest(activity, legacyGDPR), new InterstitialAdLoadCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.interstitial.InterstitialAd.load(activity, adMobInterstitialId, Tools.getAdRequest(activity, legacyGDPR), new InterstitialAdLoadCallback() {
                             @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.interstitial.InterstitialAd interstitialAd) {
+                            public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.interstitial.InterstitialAd interstitialAd) {
                                 adMobInterstitialAd = interstitialAd;
                                 adMobInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                                     @Override
@@ -413,7 +413,7 @@ public class InterstitialAd {
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
+                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.libraries.ads.mobile.sdk.AdError adError) {
                                         Log.d(TAG, "The ad failed to show.");
                                     }
 
@@ -496,9 +496,9 @@ public class InterstitialAd {
                 switch (backupAdNetwork) {
                     case ADMOB:
                     case FAN_BIDDING_ADMOB:
-                        com.google.android.gms.ads.interstitial.InterstitialAd.load(activity, adMobInterstitialId, Tools.getAdRequest(activity, legacyGDPR), new InterstitialAdLoadCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.interstitial.InterstitialAd.load(activity, adMobInterstitialId, Tools.getAdRequest(activity, legacyGDPR), new InterstitialAdLoadCallback() {
                             @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.interstitial.InterstitialAd interstitialAd) {
+                            public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.interstitial.InterstitialAd interstitialAd) {
                                 adMobInterstitialAd = interstitialAd;
                                 adMobInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                                     @Override
@@ -508,7 +508,7 @@ public class InterstitialAd {
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
+                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.libraries.ads.mobile.sdk.AdError adError) {
                                         Log.d(TAG, "The ad failed to show.");
                                     }
 

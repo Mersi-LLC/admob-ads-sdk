@@ -6,11 +6,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.appopen.AppOpenAd;
+import com.google.android.libraries.ads.mobile.sdk.AdError;
+import com.google.android.libraries.ads.mobile.sdk.AdRequest;
+import com.google.android.libraries.ads.mobile.sdk.FullScreenContentCallback;
+import com.google.android.libraries.ads.mobile.sdk.LoadAdError;
+import com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd;
 import com.solodroid.ads.sdk.util.OnShowAdCompleteListener;
 
 import java.util.Date;

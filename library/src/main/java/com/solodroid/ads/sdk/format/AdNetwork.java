@@ -7,8 +7,8 @@ import static com.solodroid.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
 import android.app.Activity;
 import android.util.Log;
 
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.AdapterStatus;
+import com.google.android.libraries.ads.mobile.sdk.MobileAds;
+import com.google.android.libraries.ads.mobile.sdk.initialization.AdapterStatus;
 
 import java.util.Map;
 

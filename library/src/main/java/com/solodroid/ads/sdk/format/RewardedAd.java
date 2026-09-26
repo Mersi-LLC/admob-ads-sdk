@@ -11,9 +11,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.android.libraries.ads.mobile.sdk.FullScreenContentCallback;
+import com.google.android.libraries.ads.mobile.sdk.LoadAdError;
+import com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAdLoadCallback;
 import com.solodroid.ads.sdk.util.OnRewardedAdCompleteListener;
 import com.solodroid.ads.sdk.util.OnRewardedAdDismissedListener;
 import com.solodroid.ads.sdk.util.OnRewardedAdErrorListener;
@@ -26,8 +26,8 @@ public class RewardedAd {
 
         private static final String TAG = "SoloRewarded";
         private final Activity activity;
-        private com.google.android.gms.ads.rewarded.RewardedAd adMobRewardedAd;
-        private com.google.android.gms.ads.rewarded.RewardedAd adManagerRewardedAd;
+        private com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd adMobRewardedAd;
+        private com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd adManagerRewardedAd;
         private String adStatus = "";
         private String mainAds = "";
         private String backupAds = "";
@@ -132,9 +132,9 @@ public class RewardedAd {
                 switch (mainAds) {
                     case ADMOB:
                     case FAN_BIDDING_ADMOB:
-                        com.google.android.gms.ads.rewarded.RewardedAd.load(activity, adMobRewardedId, Tools.getAdRequest(activity, legacyGDPR), new RewardedAdLoadCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd.load(activity, adMobRewardedId, Tools.getAdRequest(activity, legacyGDPR), new RewardedAdLoadCallback() {
                             @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.rewarded.RewardedAd ad) {
+                            public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd ad) {
                                 adMobRewardedAd = ad;
                                 adMobRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                                     @Override
@@ -146,7 +146,7 @@ public class RewardedAd {
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
+                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.libraries.ads.mobile.sdk.AdError adError) {
                                         super.onAdFailedToShowFullScreenContent(adError);
                                         adMobRewardedAd = null;
                                     }
@@ -166,9 +166,9 @@ public class RewardedAd {
 
                     case GOOGLE_AD_MANAGER:
                     case FAN_BIDDING_AD_MANAGER:
-                        com.google.android.gms.ads.rewarded.RewardedAd.load(activity, adManagerRewardedId, Tools.getGoogleAdManagerRequest(), new RewardedAdLoadCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd.load(activity, adManagerRewardedId, Tools.getGoogleAdManagerRequest(), new RewardedAdLoadCallback() {
                             @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.rewarded.RewardedAd ad) {
+                            public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd ad) {
                                 adManagerRewardedAd = ad;
                                 adManagerRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                                     @Override
@@ -180,7 +180,7 @@ public class RewardedAd {
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
+                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.libraries.ads.mobile.sdk.AdError adError) {
                                         super.onAdFailedToShowFullScreenContent(adError);
                                         adManagerRewardedAd = null;
                                     }
@@ -209,9 +209,9 @@ public class RewardedAd {
                 switch (backupAds) {
                     case ADMOB:
                     case FAN_BIDDING_ADMOB:
-                        com.google.android.gms.ads.rewarded.RewardedAd.load(activity, adMobRewardedId, Tools.getAdRequest(activity, legacyGDPR), new RewardedAdLoadCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd.load(activity, adMobRewardedId, Tools.getAdRequest(activity, legacyGDPR), new RewardedAdLoadCallback() {
                             @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.rewarded.RewardedAd ad) {
+                            public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd ad) {
                                 adMobRewardedAd = ad;
                                 adMobRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                                     @Override
@@ -223,7 +223,7 @@ public class RewardedAd {
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
+                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.libraries.ads.mobile.sdk.AdError adError) {
                                         super.onAdFailedToShowFullScreenContent(adError);
                                         adMobRewardedAd = null;
                                     }
@@ -242,9 +242,9 @@ public class RewardedAd {
 
                     case GOOGLE_AD_MANAGER:
                     case FAN_BIDDING_AD_MANAGER:
-                        com.google.android.gms.ads.rewarded.RewardedAd.load(activity, adManagerRewardedId, Tools.getGoogleAdManagerRequest(), new RewardedAdLoadCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd.load(activity, adManagerRewardedId, Tools.getGoogleAdManagerRequest(), new RewardedAdLoadCallback() {
                             @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.rewarded.RewardedAd ad) {
+                            public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd ad) {
                                 adManagerRewardedAd = ad;
                                 adManagerRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                                     @Override
@@ -256,7 +256,7 @@ public class RewardedAd {
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
+                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.libraries.ads.mobile.sdk.AdError adError) {
                                         super.onAdFailedToShowFullScreenContent(adError);
                                         adManagerRewardedAd = null;
                                     }
