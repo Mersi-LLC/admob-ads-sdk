@@ -97,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
         loadGdpr();
         //loadOpenAds();
         loadBannerAd();
-        //loadInterstitialAd();
-        //loadRewardedAd();
+        loadInterstitialAd();
+        loadRewardedAd();
 
         nativeAdViewContainer = findViewById(R.id.native_ad);
         setNativeAdStyle(nativeAdViewContainer);
