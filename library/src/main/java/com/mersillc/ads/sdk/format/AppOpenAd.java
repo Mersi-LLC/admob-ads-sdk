@@ -126,16 +126,20 @@ public class AppOpenAd {
                         com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd.load(adRequest, new AdLoadCallback<com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd>() {
                             @Override
                             public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd ad) {
-                                appOpenAd = ad;
-                                showAppOpenAd(onShowAdCompleteListener);
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on start] app open ad loaded");
+                                activity.runOnUiThread(() -> {
+                                    appOpenAd = ad;
+                                    showAppOpenAd(onShowAdCompleteListener);
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on start] app open ad loaded");
+                                });
                             }
 
                             @Override
                             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                appOpenAd = null;
-                                loadBackupAppOpenAd(onShowAdCompleteListener);
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on start] failed to load app open ad: " + loadAdError.getMessage());
+                                activity.runOnUiThread(() -> {
+                                    appOpenAd = null;
+                                    loadBackupAppOpenAd(onShowAdCompleteListener);
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on start] failed to load app open ad: " + loadAdError.getMessage());
+                                });
                             }
                         });
                         break;
@@ -159,16 +163,20 @@ public class AppOpenAd {
                         appOpenAd.setAdEventCallback(new AppOpenAdEventCallback() {
                             @Override
                             public void onAdDismissedFullScreenContent() {
-                                appOpenAd = null;
-                                onShowAdCompleteListener.onShowAdComplete();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on start] close app open ad");
+                                activity.runOnUiThread(() -> {
+                                    appOpenAd = null;
+                                    onShowAdCompleteListener.onShowAdComplete();
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on start] close app open ad");
+                                });
                             }
 
                             @Override
                             public void onAdFailedToShowFullScreenContent(@NonNull FullScreenContentError adError) {
-                                appOpenAd = null;
-                                onShowAdCompleteListener.onShowAdComplete();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on start] failed to show app open ad: " + adError.getMessage());
+                                activity.runOnUiThread(() -> {
+                                    appOpenAd = null;
+                                    onShowAdCompleteListener.onShowAdComplete();
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on start] failed to show app open ad: " + adError.getMessage());
+                                });
                             }
 
                             @Override
@@ -207,17 +215,21 @@ public class AppOpenAd {
                         com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd.load(adRequest, new AdLoadCallback<com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd>() {
                             @Override
                             public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd ad) {
-                                appOpenAd = ad;
-                                isAppOpenAdLoaded = true;
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] app open ad loaded");
+                                activity.runOnUiThread(() -> {
+                                    appOpenAd = ad;
+                                    isAppOpenAdLoaded = true;
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on resume] app open ad loaded");
+                                });
                             }
 
                             @Override
                             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                appOpenAd = null;
-                                isAppOpenAdLoaded = false;
-                                loadBackupAppOpenAd();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] failed to load app open ad : " + loadAdError.getMessage());
+                                activity.runOnUiThread(() -> {
+                                    appOpenAd = null;
+                                    isAppOpenAdLoaded = false;
+                                    loadBackupAppOpenAd();
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on resume] failed to load app open ad : " + loadAdError.getMessage());
+                                });
                             }
                         });
                         break;
@@ -238,16 +250,20 @@ public class AppOpenAd {
                         appOpenAd.setAdEventCallback(new AppOpenAdEventCallback() {
                             @Override
                             public void onAdDismissedFullScreenContent() {
-                                appOpenAd = null;
-                                loadAppOpenAd();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] close app open ad");
+                                activity.runOnUiThread(() -> {
+                                    appOpenAd = null;
+                                    loadAppOpenAd();
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on resume] close app open ad");
+                                });
                             }
 
                             @Override
                             public void onAdFailedToShowFullScreenContent(@NonNull FullScreenContentError adError) {
-                                appOpenAd = null;
-                                loadAppOpenAd();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] failed to show app open ad: " + adError.getMessage());
+                                activity.runOnUiThread(() -> {
+                                    appOpenAd = null;
+                                    loadAppOpenAd();
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on resume] failed to show app open ad: " + adError.getMessage());
+                                });
                             }
 
                             @Override
@@ -286,16 +302,20 @@ public class AppOpenAd {
                         com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd.load(adRequest, new AdLoadCallback<com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd>() {
                             @Override
                             public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd ad) {
-                                appOpenAd = ad;
-                                showBackupAppOpenAd(onShowAdCompleteListener);
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] app open ad loaded");
+                                activity.runOnUiThread(() -> {
+                                    appOpenAd = ad;
+                                    showBackupAppOpenAd(onShowAdCompleteListener);
+                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] app open ad loaded");
+                                });
                             }
 
                             @Override
                             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                appOpenAd = null;
-                                showBackupAppOpenAd(onShowAdCompleteListener);
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] failed to load app open ad: " + loadAdError.getMessage());
+                                activity.runOnUiThread(() -> {
+                                    appOpenAd = null;
+                                    showBackupAppOpenAd(onShowAdCompleteListener);
+                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] failed to load app open ad: " + loadAdError.getMessage());
+                                });
                             }
                         });
                         break;

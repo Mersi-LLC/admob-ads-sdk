@@ -335,7 +335,7 @@ public class RewardedAd {
                     case FAN_BIDDING_ADMOB:
                         if (adMobRewardedAd != null) {
                             adMobRewardedAd.show(activity, rewardItem -> {
-                                onComplete.onRewardedAdComplete();
+                                activity.runOnUiThread(onComplete::onRewardedAdComplete);
                                 Log.d(TAG, "The user earned the reward.");
                             });
                         } else {
@@ -347,7 +347,7 @@ public class RewardedAd {
                     case FAN_BIDDING_AD_MANAGER:
                         if (adManagerRewardedAd != null) {
                             adManagerRewardedAd.show(activity, rewardItem -> {
-                                onComplete.onRewardedAdComplete();
+                                activity.runOnUiThread(onComplete::onRewardedAdComplete);
                                 Log.d(TAG, "The user earned the reward.");
                             });
                         } else {
@@ -356,7 +356,7 @@ public class RewardedAd {
                         break;
 
                     default:
-                        onError.onRewardedAdError();
+                        activity.runOnUiThread(onError::onRewardedAdError);
                         break;
                 }
             }
@@ -370,11 +370,11 @@ public class RewardedAd {
                     case FAN_BIDDING_ADMOB:
                         if (adMobRewardedAd != null) {
                             adMobRewardedAd.show(activity, rewardItem -> {
-                                onComplete.onRewardedAdComplete();
+                                activity.runOnUiThread(onComplete::onRewardedAdComplete);
                                 Log.d(TAG, "The user earned the reward.");
                             });
                         } else {
-                            onError.onRewardedAdError();
+                            activity.runOnUiThread(onError::onRewardedAdError);
                         }
                         break;
 
@@ -382,16 +382,16 @@ public class RewardedAd {
                     case FAN_BIDDING_AD_MANAGER:
                         if (adManagerRewardedAd != null) {
                             adManagerRewardedAd.show(activity, rewardItem -> {
-                                onComplete.onRewardedAdComplete();
+                                activity.runOnUiThread(onComplete::onRewardedAdComplete);
                                 Log.d(TAG, "The user earned the reward.");
                             });
                         } else {
-                            onError.onRewardedAdError();
+                            activity.runOnUiThread(onError::onRewardedAdError);
                         }
                         break;
 
                     default:
-                        onError.onRewardedAdError();
+                        activity.runOnUiThread(onError::onRewardedAdError);
                         break;
                 }
             }

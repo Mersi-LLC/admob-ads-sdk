@@ -140,13 +140,15 @@ public class MediumRectangleAd {
                             adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
                                 @Override
                                 public void onAdLoaded(@NonNull BannerAd bannerAd) {
-                                    adContainerView.setVisibility(View.VISIBLE);
+                                    activity.runOnUiThread(() -> adContainerView.setVisibility(View.VISIBLE));
                                 }
 
                                 @Override
                                 public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                                    adContainerView.setVisibility(View.GONE);
-                                    loadBackupBannerAd();
+                                    activity.runOnUiThread(() -> {
+                                        adContainerView.setVisibility(View.GONE);
+                                        loadBackupBannerAd();
+                                    });
                                 }
                             });
                         });
@@ -165,13 +167,15 @@ public class MediumRectangleAd {
                             adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
                                 @Override
                                 public void onAdLoaded(@NonNull BannerAd bannerAd) {
-                                    googleAdContainerView.setVisibility(View.VISIBLE);
+                                    activity.runOnUiThread(() -> googleAdContainerView.setVisibility(View.VISIBLE));
                                 }
 
                                 @Override
                                 public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                    googleAdContainerView.setVisibility(View.GONE);
-                                    loadBackupBannerAd();
+                                    activity.runOnUiThread(() -> {
+                                        googleAdContainerView.setVisibility(View.GONE);
+                                        loadBackupBannerAd();
+                                    });
                                 }
                             });
                         });
@@ -201,12 +205,12 @@ public class MediumRectangleAd {
                             adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
                                 @Override
                                 public void onAdLoaded(@NonNull BannerAd bannerAd) {
-                                    adContainerView.setVisibility(View.VISIBLE);
+                                    activity.runOnUiThread(() -> adContainerView.setVisibility(View.VISIBLE));
                                 }
 
                                 @Override
                                 public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                                    adContainerView.setVisibility(View.GONE);
+                                    activity.runOnUiThread(() -> adContainerView.setVisibility(View.GONE));
                                 }
                             });
                         });
@@ -225,12 +229,12 @@ public class MediumRectangleAd {
                             adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
                                 @Override
                                 public void onAdLoaded(@NonNull BannerAd bannerAd) {
-                                    googleAdContainerView.setVisibility(View.VISIBLE);
+                                    activity.runOnUiThread(() -> googleAdContainerView.setVisibility(View.VISIBLE));
                                 }
 
                                 @Override
                                 public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                    googleAdContainerView.setVisibility(View.GONE);
+                                    activity.runOnUiThread(() -> googleAdContainerView.setVisibility(View.GONE));
                                 }
                             });
                         });
