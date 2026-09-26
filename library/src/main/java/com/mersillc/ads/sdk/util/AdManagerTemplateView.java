@@ -32,10 +32,10 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.google.android.gms.ads.nativead.MediaView;
-import com.google.android.gms.ads.nativead.NativeAd;
-import com.google.android.gms.ads.nativead.NativeAd.Image;
-import com.google.android.gms.ads.nativead.NativeAdView;
+import com.google.android.libraries.ads.mobile.sdk.nativead.MediaView;
+import com.google.android.libraries.ads.mobile.sdk.nativead.NativeAd;
+import com.google.android.libraries.ads.mobile.sdk.common.Image;
+import com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView;
 import com.mersillc.ads.sdk.R;
 
 /**
@@ -210,7 +210,7 @@ public class AdManagerTemplateView extends FrameLayout {
 
         nativeAdView.setCallToActionView(callToActionView);
         nativeAdView.setHeadlineView(primaryView);
-        nativeAdView.setMediaView(mediaView);
+        // nativeAdView.setMediaView(mediaView);
         secondaryView.setVisibility(VISIBLE);
         if (adHasOnlyStore(nativeAd)) {
             nativeAdView.setStoreView(secondaryView);
@@ -249,7 +249,7 @@ public class AdManagerTemplateView extends FrameLayout {
             nativeAdView.setBodyView(tertiaryView);
         }
 
-        nativeAdView.setNativeAd(nativeAd);
+        nativeAdView.registerNativeAd(nativeAd, mediaView);
     }
 
     /**

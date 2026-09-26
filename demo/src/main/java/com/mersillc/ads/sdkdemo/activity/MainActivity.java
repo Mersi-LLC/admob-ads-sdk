@@ -49,7 +49,6 @@ import com.mersillc.ads.sdk.gdpr.GDPR;
 import com.mersillc.ads.sdk.util.OnRewardedAdCompleteListener;
 import com.mersillc.ads.sdk.util.OnRewardedAdDismissedListener;
 import com.mersillc.ads.sdk.util.OnRewardedAdErrorListener;
-import com.mersillc.ads.sdkdemo.BuildConfig;
 import com.mersillc.ads.sdkdemo.R;
 import com.mersillc.ads.sdkdemo.data.Constant;
 import com.mersillc.ads.sdkdemo.database.SharedPref;
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         initAds();
         loadGdpr();
-        //loadOpenAds();
+        loadOpenAds();
         loadBannerAd();
         loadInterstitialAd();
         loadRewardedAd();
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 .setAdStatus(Constant.AD_STATUS)
                 .setAdNetwork(Constant.AD_NETWORK)
                 .setBackupAdNetwork(Constant.BACKUP_AD_NETWORK)
-                .setAdMobAppId(null)
+                .setAdMobAppId(getString(R.string.admob_app_id))
                 .setStartappAppId(Constant.STARTAPP_APP_ID)
                 .setUnityGameId(Constant.UNITY_GAME_ID)
                 .setAppLovinSdkKey(getResources().getString(R.string.applovin_sdk_key))
@@ -325,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         destroyBannerAd();
-        //destroyAppOpenAd();
+        destroyAppOpenAd();
         Constant.isAppOpen = false;
     }
 
@@ -472,7 +471,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void destroyAppOpenAd() {
         if (Constant.FORCE_TO_SHOW_APP_OPEN_AD_ON_START) {
-            appOpenAdBuilder.destroyOpenAd();
+            if (appOpenAdBuilder != null) {
+                appOpenAdBuilder.destroyOpenAd();
+            }
             ProcessLifecycleOwner.get().getLifecycle().removeObserver(lifecycleObserver);
         }
     }

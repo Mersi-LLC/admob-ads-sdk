@@ -15,11 +15,11 @@ public class Constant {
 
     public static final String ADMOB_COLLAPSIBLE_BANNER_ID = "ca-app-pub-9494646950582724/2518809946";
 
-    public static final String GOOGLE_AD_MANAGER_BANNER_ID = "/6499/example/banner";
-    public static final String GOOGLE_AD_MANAGER_INTERSTITIAL_ID = "/6499/example/interstitial";
-    public static final String GOOGLE_AD_MANAGER_REWARDED_ID = "/6499/example/rewarded";
-    public static final String GOOGLE_AD_MANAGER_NATIVE_ID = "/6499/example/native";
-    public static final String GOOGLE_AD_MANAGER_APP_OPEN_AD_ID = "/6499/example/app-open";
+    public static final String GOOGLE_AD_MANAGER_BANNER_ID = "/21775744923/example/adaptive-banner";
+    public static final String GOOGLE_AD_MANAGER_INTERSTITIAL_ID = "/21775744923/example/interstitial";
+    public static final String GOOGLE_AD_MANAGER_REWARDED_ID = "/21775744923/example/rewarded";
+    public static final String GOOGLE_AD_MANAGER_NATIVE_ID = "/21775744923/example/native";
+    public static final String GOOGLE_AD_MANAGER_APP_OPEN_AD_ID = "/21775744923/example/app-open";
 
     public static final String FAN_BANNER_ID = "YOUR_PLACEMENT_ID";
     public static final String FAN_INTERSTITIAL_ID = "YOUR_PLACEMENT_ID";

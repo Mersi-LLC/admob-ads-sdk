@@ -11,13 +11,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.android.libraries.ads.mobile.sdk.common.AdLoadCallback;
+import com.google.android.libraries.ads.mobile.sdk.common.AdRequest;
+import com.google.android.libraries.ads.mobile.sdk.common.FullScreenContentError;
+import com.google.android.libraries.ads.mobile.sdk.common.LoadAdError;
+import com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAdEventCallback;
 import com.mersillc.ads.sdk.util.OnRewardedAdCompleteListener;
 import com.mersillc.ads.sdk.util.OnRewardedAdDismissedListener;
 import com.mersillc.ads.sdk.util.OnRewardedAdErrorListener;
-import com.mersillc.ads.sdk.util.Tools;
 
 public class RewardedAd {
 
@@ -26,8 +27,8 @@ public class RewardedAd {
 
         private static final String TAG = "SoloRewarded";
         private final Activity activity;
-        private com.google.android.gms.ads.rewarded.RewardedAd adMobRewardedAd;
-        private com.google.android.gms.ads.rewarded.RewardedAd adManagerRewardedAd;
+        private com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd adMobRewardedAd;
+        private com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd adManagerRewardedAd;
         private String adStatus = "";
         private String mainAds = "";
         private String backupAds = "";
@@ -132,70 +133,94 @@ public class RewardedAd {
                 switch (mainAds) {
                     case ADMOB:
                     case FAN_BIDDING_ADMOB:
-                        com.google.android.gms.ads.rewarded.RewardedAd.load(activity, adMobRewardedId, Tools.getAdRequest(activity, legacyGDPR), new RewardedAdLoadCallback() {
-                            @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.rewarded.RewardedAd ad) {
-                                adMobRewardedAd = ad;
-                                adMobRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd.load(
+                                new AdRequest.Builder(adMobRewardedId).build(),
+                                new AdLoadCallback<com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd>() {
                                     @Override
-                                    public void onAdDismissedFullScreenContent() {
-                                        super.onAdDismissedFullScreenContent();
-                                        adMobRewardedAd = null;
-                                        loadRewardedAd(onComplete, onDismiss);
-                                        onDismiss.onRewardedAdDismissed();
+                                    public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd ad) {
+                                        adMobRewardedAd = ad;
+                                        adMobRewardedAd.setAdEventCallback(new RewardedAdEventCallback() {
+                                            @Override
+                                            public void onAdDismissedFullScreenContent() {
+                                                adMobRewardedAd = null;
+                                                loadRewardedAd(onComplete, onDismiss);
+                                                onDismiss.onRewardedAdDismissed();
+                                            }
+
+                                            @Override
+                                            public void onAdFailedToShowFullScreenContent(@NonNull FullScreenContentError adError) {
+                                                adMobRewardedAd = null;
+                                            }
+
+                                            @Override
+                                            public void onAdShowedFullScreenContent() {
+                                            }
+
+                                            @Override
+                                            public void onAdImpression() {
+                                            }
+
+                                            @Override
+                                            public void onAdClicked() {
+                                            }
+                                        });
+                                        Log.d(TAG, "[" + mainAds + "] " + "rewarded ad loaded");
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
-                                        super.onAdFailedToShowFullScreenContent(adError);
+                                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                        Log.d(TAG, loadAdError.toString());
                                         adMobRewardedAd = null;
+                                        loadRewardedBackupAd(onComplete, onDismiss);
+                                        Log.d(TAG, "[" + mainAds + "] " + "failed to load rewarded ad: " + loadAdError.getMessage() + ", try to load backup ad: " + backupAds);
                                     }
                                 });
-                                Log.d(TAG, "[" + mainAds + "] " + "rewarded ad loaded");
-                            }
-
-                            @Override
-                            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                Log.d(TAG, loadAdError.toString());
-                                adMobRewardedAd = null;
-                                loadRewardedBackupAd(onComplete, onDismiss);
-                                Log.d(TAG, "[" + mainAds + "] " + "failed to load rewarded ad: " + loadAdError.getMessage() + ", try to load backup ad: " + backupAds);
-                            }
-                        });
                         break;
 
                     case GOOGLE_AD_MANAGER:
                     case FAN_BIDDING_AD_MANAGER:
-                        com.google.android.gms.ads.rewarded.RewardedAd.load(activity, adManagerRewardedId, Tools.getGoogleAdManagerRequest(), new RewardedAdLoadCallback() {
-                            @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.rewarded.RewardedAd ad) {
-                                adManagerRewardedAd = ad;
-                                adManagerRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd.load(
+                                new AdRequest.Builder(adManagerRewardedId).build(),
+                                new AdLoadCallback<com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd>() {
                                     @Override
-                                    public void onAdDismissedFullScreenContent() {
-                                        super.onAdDismissedFullScreenContent();
-                                        adManagerRewardedAd = null;
-                                        loadRewardedAd(onComplete, onDismiss);
-                                        onDismiss.onRewardedAdDismissed();
+                                    public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd ad) {
+                                        adManagerRewardedAd = ad;
+                                        adManagerRewardedAd.setAdEventCallback(new RewardedAdEventCallback() {
+                                            @Override
+                                            public void onAdDismissedFullScreenContent() {
+                                                adManagerRewardedAd = null;
+                                                loadRewardedAd(onComplete, onDismiss);
+                                                onDismiss.onRewardedAdDismissed();
+                                            }
+
+                                            @Override
+                                            public void onAdFailedToShowFullScreenContent(@NonNull FullScreenContentError adError) {
+                                                adManagerRewardedAd = null;
+                                            }
+
+                                            @Override
+                                            public void onAdShowedFullScreenContent() {
+                                            }
+
+                                            @Override
+                                            public void onAdImpression() {
+                                            }
+
+                                            @Override
+                                            public void onAdClicked() {
+                                            }
+                                        });
+                                        Log.d(TAG, "[" + mainAds + "] " + "rewarded ad loaded");
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
-                                        super.onAdFailedToShowFullScreenContent(adError);
+                                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                        Log.d(TAG, loadAdError.toString());
                                         adManagerRewardedAd = null;
+                                        loadRewardedBackupAd(onComplete, onDismiss);
+                                        Log.d(TAG, "[" + mainAds + "] " + "failed to load rewarded ad: " + loadAdError.getMessage() + ", try to load backup ad: " + backupAds);
                                     }
                                 });
-                                Log.d(TAG, "[" + mainAds + "] " + "rewarded ad loaded");
-                            }
-
-                            @Override
-                            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                Log.d(TAG, loadAdError.toString());
-                                adManagerRewardedAd = null;
-                                loadRewardedBackupAd(onComplete, onDismiss);
-                                Log.d(TAG, "[" + mainAds + "] " + "failed to load rewarded ad: " + loadAdError.getMessage() + ", try to load backup ad: " + backupAds);
-                            }
-                        });
                         break;
 
                     default:
@@ -209,68 +234,92 @@ public class RewardedAd {
                 switch (backupAds) {
                     case ADMOB:
                     case FAN_BIDDING_ADMOB:
-                        com.google.android.gms.ads.rewarded.RewardedAd.load(activity, adMobRewardedId, Tools.getAdRequest(activity, legacyGDPR), new RewardedAdLoadCallback() {
-                            @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.rewarded.RewardedAd ad) {
-                                adMobRewardedAd = ad;
-                                adMobRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd.load(
+                                new AdRequest.Builder(adMobRewardedId).build(),
+                                new AdLoadCallback<com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd>() {
                                     @Override
-                                    public void onAdDismissedFullScreenContent() {
-                                        super.onAdDismissedFullScreenContent();
-                                        adMobRewardedAd = null;
-                                        loadRewardedAd(onComplete, onDismiss);
-                                        onDismiss.onRewardedAdDismissed();
+                                    public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd ad) {
+                                        adMobRewardedAd = ad;
+                                        adMobRewardedAd.setAdEventCallback(new RewardedAdEventCallback() {
+                                            @Override
+                                            public void onAdDismissedFullScreenContent() {
+                                                adMobRewardedAd = null;
+                                                loadRewardedAd(onComplete, onDismiss);
+                                                onDismiss.onRewardedAdDismissed();
+                                            }
+
+                                            @Override
+                                            public void onAdFailedToShowFullScreenContent(@NonNull FullScreenContentError adError) {
+                                                adMobRewardedAd = null;
+                                            }
+
+                                            @Override
+                                            public void onAdShowedFullScreenContent() {
+                                            }
+
+                                            @Override
+                                            public void onAdImpression() {
+                                            }
+
+                                            @Override
+                                            public void onAdClicked() {
+                                            }
+                                        });
+                                        Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad loaded");
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
-                                        super.onAdFailedToShowFullScreenContent(adError);
+                                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                        Log.d(TAG, loadAdError.toString());
                                         adMobRewardedAd = null;
+                                        Log.d(TAG, "[" + backupAds + "] [backup] " + "failed to load rewarded ad: " + loadAdError.getMessage() + ", try to load backup ad: " + backupAds);
                                     }
                                 });
-                                Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad loaded");
-                            }
-
-                            @Override
-                            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                Log.d(TAG, loadAdError.toString());
-                                adMobRewardedAd = null;
-                                Log.d(TAG, "[" + backupAds + "] [backup] " + "failed to load rewarded ad: " + loadAdError.getMessage() + ", try to load backup ad: " + backupAds);
-                            }
-                        });
                         break;
 
                     case GOOGLE_AD_MANAGER:
                     case FAN_BIDDING_AD_MANAGER:
-                        com.google.android.gms.ads.rewarded.RewardedAd.load(activity, adManagerRewardedId, Tools.getGoogleAdManagerRequest(), new RewardedAdLoadCallback() {
-                            @Override
-                            public void onAdLoaded(@NonNull com.google.android.gms.ads.rewarded.RewardedAd ad) {
-                                adManagerRewardedAd = ad;
-                                adManagerRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd.load(
+                                new AdRequest.Builder(adManagerRewardedId).build(),
+                                new AdLoadCallback<com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd>() {
                                     @Override
-                                    public void onAdDismissedFullScreenContent() {
-                                        super.onAdDismissedFullScreenContent();
-                                        adManagerRewardedAd = null;
-                                        loadRewardedAd(onComplete, onDismiss);
-                                        onDismiss.onRewardedAdDismissed();
+                                    public void onAdLoaded(@NonNull com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd ad) {
+                                        adManagerRewardedAd = ad;
+                                        adManagerRewardedAd.setAdEventCallback(new RewardedAdEventCallback() {
+                                            @Override
+                                            public void onAdDismissedFullScreenContent() {
+                                                adManagerRewardedAd = null;
+                                                loadRewardedAd(onComplete, onDismiss);
+                                                onDismiss.onRewardedAdDismissed();
+                                            }
+
+                                            @Override
+                                            public void onAdFailedToShowFullScreenContent(@NonNull FullScreenContentError adError) {
+                                                adManagerRewardedAd = null;
+                                            }
+
+                                            @Override
+                                            public void onAdShowedFullScreenContent() {
+                                            }
+
+                                            @Override
+                                            public void onAdImpression() {
+                                            }
+
+                                            @Override
+                                            public void onAdClicked() {
+                                            }
+                                        });
+                                        Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad loaded");
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull com.google.android.gms.ads.AdError adError) {
-                                        super.onAdFailedToShowFullScreenContent(adError);
+                                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                        Log.d(TAG, loadAdError.toString());
                                         adManagerRewardedAd = null;
+                                        Log.d(TAG, "[" + mainAds + "] " + "failed to load rewarded ad: " + loadAdError.getMessage() + ", try to load backup ad: " + backupAds);
                                     }
                                 });
-                                Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad loaded");
-                            }
-
-                            @Override
-                            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                Log.d(TAG, loadAdError.toString());
-                                adManagerRewardedAd = null;
-                                Log.d(TAG, "[" + mainAds + "] " + "failed to load rewarded ad: " + loadAdError.getMessage() + ", try to load backup ad: " + backupAds);
-                            }
-                        });
                         break;
 
                     default:
@@ -350,6 +399,12 @@ public class RewardedAd {
         }
 
         public void destroyRewardedAd() {
+            if (adMobRewardedAd != null) {
+                adMobRewardedAd = null;
+            }
+            if (adManagerRewardedAd != null) {
+                adManagerRewardedAd = null;
+            }
         }
 
     }

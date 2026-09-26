@@ -7,7 +7,6 @@ import static com.mersillc.ads.sdk.util.Constant.APPLOVIN_MAX;
 import static com.mersillc.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
 import static com.mersillc.ads.sdk.util.Constant.WORTISE;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -99,7 +98,7 @@ public class ActivitySplash extends AppCompatActivity {
     }
 
     private void requestConfig() {
-        requestAPI("https://raw.githubusercontent.com/solodroidev/content/uploads/json/android.json");
+        requestAPI("https://raw.githubusercontent.com/Mersi-LLC/content/uploads/json/android.json");
     }
 
     private void requestAPI(@SuppressWarnings("SameParameterValue") String url) {
@@ -140,7 +139,7 @@ public class ActivitySplash extends AppCompatActivity {
                 .setAdStatus(Constant.AD_STATUS)
                 .setAdNetwork(Constant.AD_NETWORK)
                 .setBackupAdNetwork(Constant.BACKUP_AD_NETWORK)
-                .setAdMobAppId(null)
+                .setAdMobAppId(getString(R.string.admob_app_id))
                 .setStartappAppId(Constant.STARTAPP_APP_ID)
                 .setUnityGameId(Constant.UNITY_GAME_ID)
                 .setAppLovinSdkKey(getResources().getString(R.string.applovin_sdk_key))
@@ -167,7 +166,7 @@ public class ActivitySplash extends AppCompatActivity {
     }
 
     public void startMainActivity() {
-        new Handler().postDelayed(() -> {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();

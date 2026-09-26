@@ -11,10 +11,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 
-import com.google.ads.mediation.admob.AdMobAdapter;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.admanager.AdManagerAdRequest;
+import com.google.android.libraries.ads.mobile.sdk.banner.AdSize;
 import com.mersillc.ads.sdk.gdpr.LegacyGDPR;
 
 import java.nio.charset.StandardCharsets;
@@ -37,36 +34,7 @@ public class Tools {
         return AdSize.MEDIUM_RECTANGLE;
     }
 
-    public static AdRequest getAdRequest(Activity activity, Boolean legacyGDPR) {
-        //Bundle extras = new FacebookExtras().setNativeBanner(true).build();
-        if (legacyGDPR) {
-            return new AdRequest.Builder()
-                    .addNetworkExtrasBundle(AdMobAdapter.class, LegacyGDPR.getBundleAd(activity))
-                    //.addNetworkExtrasBundle(FacebookAdapter.class, extras)
-                    .build();
-        } else {
-            return new AdRequest.Builder()
-                    //.addNetworkExtrasBundle(FacebookAdapter.class, extras)
-                    .build();
-        }
-    }
 
-    public static AdRequest getAdRequest(Activity activity, Boolean legacyGDPR, boolean isCollapsibleBannerAd) {
-        if (isCollapsibleBannerAd) {
-            Bundle extras = new Bundle();
-            extras.putString("collapsible", "bottom");
-            return new AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter.class, extras).build();
-        } else {
-            Log.d("Rawr", "request ad");
-            return new AdRequest.Builder().build();
-        }
-    }
-
-    @SuppressLint("VisibleForTests")
-    public static AdManagerAdRequest getGoogleAdManagerRequest() {
-        return new AdManagerAdRequest.Builder()
-                .build();
-    }
 
     public static String decode(String code) {
         return decodeBase64(decodeBase64(decodeBase64(code)));

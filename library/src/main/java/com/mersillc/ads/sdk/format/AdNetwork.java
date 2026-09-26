@@ -7,8 +7,9 @@ import static com.mersillc.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
 import android.app.Activity;
 import android.util.Log;
 
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.AdapterStatus;
+import com.google.android.libraries.ads.mobile.sdk.MobileAds;
+import com.google.android.libraries.ads.mobile.sdk.initialization.AdapterStatus;
+import com.google.android.libraries.ads.mobile.sdk.initialization.InitializationConfig;
 
 import java.util.Map;
 
@@ -56,7 +57,7 @@ public class AdNetwork {
         }
 
         public Initialize setAdMobAppId(String adMobAppId) {
-            this.adMobAppId = adMobAppId;
+            this.adMobAppId = adMobAppId != null ? adMobAppId : "";
             return this;
         }
 
@@ -100,14 +101,19 @@ public class AdNetwork {
                 switch (adNetwork) {
                     case ADMOB:
                     case GOOGLE_AD_MANAGER:
-                        MobileAds.initialize(activity, initializationStatus -> {
-                            Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
-                            for (String adapterClass : statusMap.keySet()) {
-                                AdapterStatus adapterStatus = statusMap.get(adapterClass);
-                                assert adapterStatus != null;
-                                Log.d(TAG, String.format("Adapter name: %s, Description: %s, Latency: %d", adapterClass, adapterStatus.getDescription(), adapterStatus.getLatency()));
-                            }
-                        });
+                        new Thread(() -> {
+                            String appId = adMobAppId != null ? adMobAppId : "";
+                            InitializationConfig initConfig = new InitializationConfig.Builder(appId).build();
+                            MobileAds.initialize(activity, initConfig, initializationStatus -> {
+                                Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
+                                for (String adapterClass : statusMap.keySet()) {
+                                    AdapterStatus adapterStatus = statusMap.get(adapterClass);
+                                    if (adapterStatus != null) {
+                                        Log.d(TAG, String.format("Adapter name: %s, Description: %s, Latency: %d", adapterClass, adapterStatus.getDescription(), adapterStatus.getLatency()));
+                                    }
+                                }
+                            });
+                        }).start();
                         break;
 
                     default:
@@ -122,14 +128,19 @@ public class AdNetwork {
                 switch (backupAdNetwork) {
                     case ADMOB:
                     case GOOGLE_AD_MANAGER:
-                        MobileAds.initialize(activity, initializationStatus -> {
-                            Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
-                            for (String adapterClass : statusMap.keySet()) {
-                                AdapterStatus adapterStatus = statusMap.get(adapterClass);
-                                assert adapterStatus != null;
-                                Log.d(TAG, String.format("Adapter name: %s, Description: %s, Latency: %d", adapterClass, adapterStatus.getDescription(), adapterStatus.getLatency()));
-                            }
-                        });
+                        new Thread(() -> {
+                            String appId = adMobAppId != null ? adMobAppId : "";
+                            InitializationConfig initConfig = new InitializationConfig.Builder(appId).build();
+                            MobileAds.initialize(activity, initConfig, initializationStatus -> {
+                                Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
+                                for (String adapterClass : statusMap.keySet()) {
+                                    AdapterStatus adapterStatus = statusMap.get(adapterClass);
+                                    if (adapterStatus != null) {
+                                        Log.d(TAG, String.format("Adapter name: %s, Description: %s, Latency: %d", adapterClass, adapterStatus.getDescription(), adapterStatus.getLatency()));
+                                    }
+                                }
+                            });
+                        }).start();
                         break;
 
                     default:

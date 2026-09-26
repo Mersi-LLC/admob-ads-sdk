@@ -7,11 +7,12 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.admanager.AdManagerAdRequest;
-import com.google.android.gms.ads.appopen.AppOpenAd;
+import com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd;
+import com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAdEventCallback;
+import com.google.android.libraries.ads.mobile.sdk.common.AdLoadCallback;
+import com.google.android.libraries.ads.mobile.sdk.common.AdRequest;
+import com.google.android.libraries.ads.mobile.sdk.common.FullScreenContentError;
+import com.google.android.libraries.ads.mobile.sdk.common.LoadAdError;
 import com.mersillc.ads.sdk.util.OnShowAdCompleteListener;
 
 import java.util.Date;
@@ -33,8 +34,8 @@ public class AppOpenAdManager {
         }
 
         isLoadingAd = true;
-        @SuppressLint("VisibleForTests") AdManagerAdRequest request = new AdManagerAdRequest.Builder().build();
-        AppOpenAd.load(context, adManagerAppOpenAdUnitId, request, new AppOpenAd.AppOpenAdLoadCallback() {
+        AdRequest request = new AdRequest.Builder(adManagerAppOpenAdUnitId).build();
+        AppOpenAd.load(request, new AdLoadCallback<AppOpenAd>() {
             @Override
             public void onAdLoaded(@NonNull AppOpenAd ad) {
                 appOpenAd = ad;
@@ -81,7 +82,7 @@ public class AppOpenAdManager {
 
         Log.d(LOG_TAG, "Will show ad.");
 
-        appOpenAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+        appOpenAd.setAdEventCallback(new AppOpenAdEventCallback() {
             @Override
             public void onAdDismissedFullScreenContent() {
                 appOpenAd = null;
@@ -94,7 +95,7 @@ public class AppOpenAdManager {
             }
 
             @Override
-            public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+            public void onAdFailedToShowFullScreenContent(@NonNull FullScreenContentError adError) {
                 appOpenAd = null;
                 isShowingAd = false;
                 Log.d(LOG_TAG, "onAdFailedToShowFullScreenContent: " + adError.getMessage());
@@ -105,6 +106,14 @@ public class AppOpenAdManager {
             @Override
             public void onAdShowedFullScreenContent() {
                 Log.d(LOG_TAG, "onAdShowedFullScreenContent.");
+            }
+
+            @Override
+            public void onAdClicked() {
+            }
+
+            @Override
+            public void onAdImpression() {
             }
         });
 

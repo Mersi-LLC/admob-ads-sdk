@@ -1,5 +1,11 @@
 package com.mersillc.ads.sdk.format;
 
+import com.google.android.libraries.ads.mobile.sdk.common.LoadAdError;
+import com.google.android.libraries.ads.mobile.sdk.nativead.MediaView;
+import com.google.android.libraries.ads.mobile.sdk.nativead.NativeAd;
+import com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdLoader;
+import com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdRequest;
+import com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView;
 import static com.mersillc.ads.sdk.util.Constant.ADMOB;
 import static com.mersillc.ads.sdk.util.Constant.AD_STATUS_ON;
 import static com.mersillc.ads.sdk.util.Constant.FAN_BIDDING_ADMOB;
@@ -20,10 +26,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.nativead.MediaView;
 import com.mersillc.ads.sdk.R;
 import com.mersillc.ads.sdk.util.AdManagerTemplateView;
 import com.mersillc.ads.sdk.util.NativeTemplateStyle;
@@ -200,8 +202,12 @@ public class NativeAdFragment {
                     case ADMOB:
                     case FAN_BIDDING_ADMOB:
                         if (admobNativeAd.getVisibility() != View.VISIBLE) {
-                            AdLoader adLoader = new AdLoader.Builder(activity, adMobNativeId)
-                                    .forNativeAd(NativeAd -> {
+                            NativeAdRequest adRequest = new NativeAdRequest.Builder(adMobNativeId, java.util.Collections.singletonList(NativeAd.NativeAdType.NATIVE)).build();
+                            NativeAdLoader.load(adRequest, new com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdLoaderCallback() {
+                                @Override
+                                public void onNativeAdLoaded(@NonNull NativeAd nativeAd) {
+
+
                                         if (darkTheme) {
                                             ColorDrawable colorDrawable = new ColorDrawable(ContextCompat.getColor(activity, nativeBackgroundDark));
                                             NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(colorDrawable).build();
@@ -214,19 +220,22 @@ public class NativeAdFragment {
                                             admobNativeBackground.setBackgroundResource(nativeBackgroundLight);
                                         }
                                         mediaView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
-                                        admobNativeAd.setNativeAd(NativeAd);
+                                        admobNativeAd.setNativeAd(nativeAd);
                                         admobNativeAd.setVisibility(View.VISIBLE);
                                         nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    })
-                                    .withAdListener(new AdListener() {
-                                        @Override
-                                        public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+                                    
+                                
+                                }
+
+                                @Override
+                                public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+
+
                                             loadBackupNativeAd();
-                                        }
-                                    })
-                                    .build();
-                            adLoader.loadAd(Tools.getAdRequest(activity, legacyGDPR));
-                        } else {
+                                        
+                                
+                                }
+                            });} else {
                             Log.d(TAG, "AdMob Native Ad has been loaded");
                         }
                         break;
@@ -234,8 +243,12 @@ public class NativeAdFragment {
                     case GOOGLE_AD_MANAGER:
                     case FAN_BIDDING_AD_MANAGER:
                         if (adManagerNativeAd.getVisibility() != View.VISIBLE) {
-                            AdLoader adLoader = new AdLoader.Builder(activity, adManagerNativeId)
-                                    .forNativeAd(NativeAd -> {
+                            NativeAdRequest adRequest = new NativeAdRequest.Builder(adManagerNativeId, java.util.Collections.singletonList(NativeAd.NativeAdType.NATIVE)).build();
+                            NativeAdLoader.load(adRequest, new com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdLoaderCallback() {
+                                @Override
+                                public void onNativeAdLoaded(@NonNull NativeAd nativeAd) {
+
+
                                         if (darkTheme) {
                                             ColorDrawable colorDrawable = new ColorDrawable(ContextCompat.getColor(activity, nativeBackgroundDark));
                                             NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(colorDrawable).build();
@@ -248,19 +261,22 @@ public class NativeAdFragment {
                                             adManagerNativeBackground.setBackgroundResource(nativeBackgroundLight);
                                         }
                                         adManagerMediaView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
-                                        adManagerNativeAd.setNativeAd(NativeAd);
+                                        adManagerNativeAd.setNativeAd(nativeAd);
                                         adManagerNativeAd.setVisibility(View.VISIBLE);
                                         nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    })
-                                    .withAdListener(new AdListener() {
-                                        @Override
-                                        public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+                                    
+                                
+                                }
+
+                                @Override
+                                public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+
+
                                             loadBackupNativeAd();
-                                        }
-                                    })
-                                    .build();
-                            adLoader.loadAd(Tools.getGoogleAdManagerRequest());
-                        } else {
+                                        
+                                
+                                }
+                            });} else {
                             Log.d(TAG, "Ad Manager Native Ad has been loaded");
                         }
                         break;
@@ -304,8 +320,12 @@ public class NativeAdFragment {
                     case ADMOB:
                     case FAN_BIDDING_ADMOB:
                         if (admobNativeAd.getVisibility() != View.VISIBLE) {
-                            AdLoader adLoader = new AdLoader.Builder(activity, adMobNativeId)
-                                    .forNativeAd(NativeAd -> {
+                            NativeAdRequest adRequest = new NativeAdRequest.Builder(adMobNativeId, java.util.Collections.singletonList(NativeAd.NativeAdType.NATIVE)).build();
+                            NativeAdLoader.load(adRequest, new com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdLoaderCallback() {
+                                @Override
+                                public void onNativeAdLoaded(@NonNull NativeAd nativeAd) {
+
+
                                         if (darkTheme) {
                                             ColorDrawable colorDrawable = new ColorDrawable(ContextCompat.getColor(activity, nativeBackgroundDark));
                                             NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(colorDrawable).build();
@@ -318,20 +338,23 @@ public class NativeAdFragment {
                                             admobNativeBackground.setBackgroundResource(nativeBackgroundLight);
                                         }
                                         mediaView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
-                                        admobNativeAd.setNativeAd(NativeAd);
+                                        admobNativeAd.setNativeAd(nativeAd);
                                         admobNativeAd.setVisibility(View.VISIBLE);
                                         nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    })
-                                    .withAdListener(new AdListener() {
-                                        @Override
-                                        public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+                                    
+                                
+                                }
+
+                                @Override
+                                public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+
+
                                             admobNativeAd.setVisibility(View.GONE);
                                             nativeAdViewContainer.setVisibility(View.GONE);
-                                        }
-                                    })
-                                    .build();
-                            adLoader.loadAd(Tools.getAdRequest(activity, legacyGDPR));
-                        } else {
+                                        
+                                
+                                }
+                            });} else {
                             Log.d(TAG, "AdMob Native Ad has been loaded");
                         }
                         break;
@@ -339,8 +362,12 @@ public class NativeAdFragment {
                     case GOOGLE_AD_MANAGER:
                     case FAN_BIDDING_AD_MANAGER:
                         if (adManagerNativeAd.getVisibility() != View.VISIBLE) {
-                            AdLoader adLoader = new AdLoader.Builder(activity, adManagerNativeId)
-                                    .forNativeAd(NativeAd -> {
+                            NativeAdRequest adRequest = new NativeAdRequest.Builder(adManagerNativeId, java.util.Collections.singletonList(NativeAd.NativeAdType.NATIVE)).build();
+                            NativeAdLoader.load(adRequest, new com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdLoaderCallback() {
+                                @Override
+                                public void onNativeAdLoaded(@NonNull NativeAd nativeAd) {
+
+
                                         if (darkTheme) {
                                             ColorDrawable colorDrawable = new ColorDrawable(ContextCompat.getColor(activity, nativeBackgroundDark));
                                             NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(colorDrawable).build();
@@ -353,20 +380,23 @@ public class NativeAdFragment {
                                             adManagerNativeBackground.setBackgroundResource(nativeBackgroundLight);
                                         }
                                         adManagerMediaView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
-                                        adManagerNativeAd.setNativeAd(NativeAd);
+                                        adManagerNativeAd.setNativeAd(nativeAd);
                                         adManagerNativeAd.setVisibility(View.VISIBLE);
                                         nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    })
-                                    .withAdListener(new AdListener() {
-                                        @Override
-                                        public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+                                    
+                                
+                                }
+
+                                @Override
+                                public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+
+
                                             adManagerNativeAd.setVisibility(View.GONE);
                                             nativeAdViewContainer.setVisibility(View.GONE);
-                                        }
-                                    })
-                                    .build();
-                            adLoader.loadAd(Tools.getGoogleAdManagerRequest());
-                        } else {
+                                        
+                                
+                                }
+                            });} else {
                             Log.d(TAG, "Ad Manager Native Ad has been loaded");
                         }
                         break;

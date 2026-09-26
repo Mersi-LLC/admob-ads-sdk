@@ -11,7 +11,8 @@ import android.app.Activity;
 import android.provider.Settings;
 import android.util.Log;
 
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.libraries.ads.mobile.sdk.MobileAds;
+import com.google.android.libraries.ads.mobile.sdk.initialization.AdapterInitializationConfig;
 import com.google.android.ump.ConsentDebugSettings;
 import com.google.android.ump.ConsentForm;
 import com.google.android.ump.ConsentInformation;
@@ -88,7 +89,7 @@ public class GDPR {
         if (isMobileAdsInitializeCalled.getAndSet(true)) {
             return;
         }
-        MobileAds.initialize(activity);
+        MobileAds.initializeAdapters(new AdapterInitializationConfig.Builder().build());
     }
 
     public void loadForm(Activity activity) {
