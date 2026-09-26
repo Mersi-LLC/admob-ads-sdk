@@ -1,4 +1,6 @@
 # admob-ads-sdk
+> **Note:** This SDK is a fork. The original source code belongs to [solodroid-dev](https://github.com/solodroid-dev).
+
 <p>A library for displaying AdMob ads</p>
 <p>Ads Sdk list:</p>
   <ul>
@@ -9,7 +11,7 @@
 ```gradle
 dependencies {
     //Ad Network Sdk, see the documentation for other Ad Network Sdk options
-    implementation 'com.github.solodroid-dev.ads:admob-ads-sdk:2.+'
+    implementation 'com.github.Mersi-LLC:admob-ads-sdk:2.+'
 }
 ```
 
