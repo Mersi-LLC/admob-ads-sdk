@@ -32,10 +32,10 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.google.android.libraries.ads.mobile.sdk.nativead.MediaView;
-import com.google.android.libraries.ads.mobile.sdk.nativead.NativeAd;
-import com.google.android.libraries.ads.mobile.sdk.nativead.NativeAd.Image;
-import com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView;
+import com.google.android.gms.ads.nativead.MediaView;
+import com.google.android.gms.ads.nativead.NativeAd;
+import com.google.android.gms.ads.nativead.NativeAd.Image;
+import com.google.android.gms.ads.nativead.NativeAdView;
 import com.mersillc.ads.sdk.R;
 
 /**

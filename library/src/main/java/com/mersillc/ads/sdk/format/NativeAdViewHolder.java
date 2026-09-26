@@ -22,11 +22,11 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.libraries.ads.mobile.sdk.AdListener;
-import com.google.android.libraries.ads.mobile.sdk.AdLoader;
-import com.google.android.libraries.ads.mobile.sdk.LoadAdError;
-import com.google.android.libraries.ads.mobile.sdk.nativead.MediaView;
-import com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.nativead.MediaView;
+import com.google.android.gms.ads.nativead.NativeAdView;
 import com.mersillc.ads.sdk.R;
 import com.mersillc.ads.sdk.util.AdManagerTemplateView;
 import com.mersillc.ads.sdk.util.NativeTemplateStyle;
@@ -940,7 +940,7 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public void populateNativeAdView(Context context, com.google.android.libraries.ads.mobile.sdk.nativead.NativeAd nativeAd, NativeAdView nativeAdView, boolean darkTheme, int nativeBackgroundDark, int nativeBackgroundLight) {
+    public void populateNativeAdView(Context context, com.google.android.gms.ads.nativead.NativeAd nativeAd, NativeAdView nativeAdView, boolean darkTheme, int nativeBackgroundDark, int nativeBackgroundLight) {
 
         if (darkTheme) {
             nativeAdViewContainer.setBackgroundColor(ContextCompat.getColor(context, nativeBackgroundDark));

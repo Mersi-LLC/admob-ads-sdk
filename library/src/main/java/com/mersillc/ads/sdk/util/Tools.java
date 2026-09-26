@@ -12,9 +12,9 @@ import android.util.Log;
 import android.view.Display;
 
 import com.google.ads.mediation.admob.AdMobAdapter;
-import com.google.android.libraries.ads.mobile.sdk.AdRequest;
-import com.google.android.libraries.ads.mobile.sdk.AdSize;
-import com.google.android.libraries.ads.mobile.sdk.admanager.AdManagerAdRequest;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.admanager.AdManagerAdRequest;
 import com.mersillc.ads.sdk.gdpr.LegacyGDPR;
 
 import java.nio.charset.StandardCharsets;

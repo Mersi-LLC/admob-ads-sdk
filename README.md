@@ -1,16 +1,20 @@
-# admob-ads-sdk
+# AdMob Ads SDK
+
 > **Note:** This SDK is a fork. The original source code belongs to [solodroid-dev](https://github.com/solodroid-dev).
 
-<p>A library for displaying AdMob ads</p>
-<p>Ads Sdk list:</p>
-  <ul>
-    <li>AdMob</li>
-    <li>Ad Manager</li>
-  </ul>
+A library for displaying AdMob and Ad Manager ads in Android applications.
 
-```gradle
+## Supported Ad Networks
+* AdMob
+* Ad Manager
+
+## Installation
+
+Add the dependency to your app's `build.gradle`:
+
+```groovy
 dependencies {
-    //Ad Network Sdk, see the documentation for other Ad Network Sdk options
+    // Ad Network SDK
     implementation 'com.github.Mersi-LLC:admob-ads-sdk:2.+'
 }
 ```
@@ -19,7 +23,10 @@ dependencies {
 
 ### 1. Initialize Ad Network
 Initialize the SDK in your `Activity` or `Application` class:
+
 ```java
+import com.mersillc.ads.sdk.format.AdNetwork;
+
 AdNetwork.Initialize adNetwork = new AdNetwork.Initialize(this)
         .setAdStatus("1")
         .setAdNetwork("admob")
@@ -31,6 +38,8 @@ AdNetwork.Initialize adNetwork = new AdNetwork.Initialize(this)
 
 ### 2. Banner Ad
 ```java
+import com.mersillc.ads.sdk.format.BannerAd;
+
 BannerAd.Builder bannerAd = new BannerAd.Builder(this)
         .setAdStatus("1")
         .setAdNetwork("admob")
@@ -38,10 +47,12 @@ BannerAd.Builder bannerAd = new BannerAd.Builder(this)
         .setAdMobBannerId("ca-app-pub-3940256099942544/6300978111")
         .build(false);
 ```
-*Note: Make sure to include a placeholder for the banner ad in your XML layout (e.g. `<LinearLayout android:id="@+id/banner_ad_view" ... />`) and attach it.*
+*Note: Make sure to include a placeholder for the banner ad in your XML layout (e.g., `<LinearLayout android:id="@+id/banner_ad_view" ... />`) and attach it.*
 
 ### 3. Interstitial Ad
 ```java
+import com.mersillc.ads.sdk.format.InterstitialAd;
+
 InterstitialAd.Builder interstitialAd = new InterstitialAd.Builder(this)
         .setAdStatus("1")
         .setAdNetwork("admob")
@@ -62,6 +73,10 @@ interstitialAd.show(() -> {
 
 ### 4. Rewarded Ad
 ```java
+import com.mersillc.ads.sdk.format.RewardedAd;
+import com.mersillc.ads.sdk.util.OnRewardedAdCompleteListener;
+import com.mersillc.ads.sdk.util.OnRewardedAdDismissedListener;
+
 RewardedAd.Builder rewardedAd = new RewardedAd.Builder(this)
         .setAdStatus("1")
         .setMainAds("admob")
@@ -79,11 +94,13 @@ RewardedAd.Builder rewardedAd = new RewardedAd.Builder(this)
         });
 
 // To show the ad:
-rewardedAd.show(...); // Pass listeners when showing
+rewardedAd.show(onComplete, onDismiss, onError);
 ```
 
 ### 5. Native Ad
 ```java
+import com.mersillc.ads.sdk.format.NativeAd;
+
 NativeAd.Builder nativeAd = new NativeAd.Builder(this)
         .setAdStatus("1")
         .setAdNetwork("admob")

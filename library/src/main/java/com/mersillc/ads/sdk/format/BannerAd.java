@@ -14,10 +14,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.libraries.ads.mobile.sdk.AdListener;
-import com.google.android.libraries.ads.mobile.sdk.AdView;
-import com.google.android.libraries.ads.mobile.sdk.LoadAdError;
-import com.google.android.libraries.ads.mobile.sdk.admanager.AdManagerAdView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.admanager.AdManagerAdView;
 import com.mersillc.ads.sdk.R;
 import com.mersillc.ads.sdk.util.Tools;
 
