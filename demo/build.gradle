@@ -4,11 +4,11 @@ plugins {
 
 android {
     namespace 'com.mersillc.ads.sdkdemo'
-    compileSdk 34
+    compileSdk 35
     defaultConfig {
         applicationId "com.mersillc.ads.sdkdemo"
-        minSdk 23
-        targetSdk 34
+        minSdk 24
+        targetSdk 35
         versionCode 1
         versionName "1.0.0"
         multiDexEnabled true

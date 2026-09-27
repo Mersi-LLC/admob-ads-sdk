@@ -90,10 +90,12 @@ public class GDPR {
         if (isMobileAdsInitializeCalled.getAndSet(true)) {
             return;
         }
-        InitializationConfig initConfig = new InitializationConfig.Builder("").build();
-        MobileAds.initialize(activity, initConfig, initializationStatus -> {
-            MobileAds.initializeAdapters(new AdapterInitializationConfig.Builder().build());
-        });
+        new Thread(() -> {
+            InitializationConfig initConfig = new InitializationConfig.Builder("").build();
+            MobileAds.initialize(activity, initConfig, initializationStatus -> {
+                MobileAds.initializeAdapters(new AdapterInitializationConfig.Builder().build());
+            });
+        }).start();
     }
 
     public void loadForm(Activity activity) {
