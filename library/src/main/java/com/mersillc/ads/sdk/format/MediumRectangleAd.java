@@ -132,24 +132,26 @@ public class MediumRectangleAd {
                     case FAN_BIDDING_ADMOB:
                         FrameLayout adContainerView = activity.findViewById(R.id.admob_banner_view_container);
                         adContainerView.post(() -> {
-                            adView = new AdView(activity);
-                            adContainerView.removeAllViews();
-                            adContainerView.addView(adView);
-                            com.google.android.libraries.ads.mobile.sdk.banner.AdSize adSize = Tools.getAdSizeMREC();
-                            BannerAdRequest bannerAdRequest = new BannerAdRequest.Builder(adMobBannerId, adSize).build();
-                            adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
-                                @Override
-                                public void onAdLoaded(@NonNull BannerAd bannerAd) {
-                                    activity.runOnUiThread(() -> adContainerView.setVisibility(View.VISIBLE));
-                                }
+                            com.mersillc.ads.sdk.format.AdNetwork.waitForAdMobInitialization(() -> {
+                                adView = new AdView(activity);
+                                adContainerView.removeAllViews();
+                                adContainerView.addView(adView);
+                                com.google.android.libraries.ads.mobile.sdk.banner.AdSize adSize = Tools.getAdSizeMREC();
+                                BannerAdRequest bannerAdRequest = new BannerAdRequest.Builder(adMobBannerId, adSize).build();
+                                adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
+                                    @Override
+                                    public void onAdLoaded(@NonNull BannerAd bannerAd) {
+                                        activity.runOnUiThread(() -> adContainerView.setVisibility(View.VISIBLE));
+                                    }
 
-                                @Override
-                                public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                                    activity.runOnUiThread(() -> {
-                                        adContainerView.setVisibility(View.GONE);
-                                        loadBackupBannerAd();
-                                    });
-                                }
+                                    @Override
+                                    public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+                                        activity.runOnUiThread(() -> {
+                                            adContainerView.setVisibility(View.GONE);
+                                            loadBackupBannerAd();
+                                        });
+                                    }
+                                });
                             });
                         });
                         Log.d(TAG, adNetwork + " Banner Ad unit Id : " + adMobBannerId);
@@ -159,24 +161,26 @@ public class MediumRectangleAd {
                     case FAN_BIDDING_AD_MANAGER:
                         FrameLayout googleAdContainerView = activity.findViewById(R.id.google_ad_banner_view_container);
                         googleAdContainerView.post(() -> {
-                            adView = new AdView(activity);
-                            googleAdContainerView.removeAllViews();
-                            googleAdContainerView.addView(adView);
-                            com.google.android.libraries.ads.mobile.sdk.banner.AdSize adSize = Tools.getAdSizeMREC();
-                            BannerAdRequest bannerAdRequest = new BannerAdRequest.Builder(googleAdManagerBannerId, adSize).build();
-                            adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
-                                @Override
-                                public void onAdLoaded(@NonNull BannerAd bannerAd) {
-                                    activity.runOnUiThread(() -> googleAdContainerView.setVisibility(View.VISIBLE));
-                                }
+                            com.mersillc.ads.sdk.format.AdNetwork.waitForAdMobInitialization(() -> {
+                                adView = new AdView(activity);
+                                googleAdContainerView.removeAllViews();
+                                googleAdContainerView.addView(adView);
+                                com.google.android.libraries.ads.mobile.sdk.banner.AdSize adSize = Tools.getAdSizeMREC();
+                                BannerAdRequest bannerAdRequest = new BannerAdRequest.Builder(googleAdManagerBannerId, adSize).build();
+                                adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
+                                    @Override
+                                    public void onAdLoaded(@NonNull BannerAd bannerAd) {
+                                        activity.runOnUiThread(() -> googleAdContainerView.setVisibility(View.VISIBLE));
+                                    }
 
-                                @Override
-                                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                    activity.runOnUiThread(() -> {
-                                        googleAdContainerView.setVisibility(View.GONE);
-                                        loadBackupBannerAd();
-                                    });
-                                }
+                                    @Override
+                                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                        activity.runOnUiThread(() -> {
+                                            googleAdContainerView.setVisibility(View.GONE);
+                                            loadBackupBannerAd();
+                                        });
+                                    }
+                                });
                             });
                         });
                         break;
@@ -197,21 +201,23 @@ public class MediumRectangleAd {
                     case FAN_BIDDING_ADMOB:
                         FrameLayout adContainerView = activity.findViewById(R.id.admob_banner_view_container);
                         adContainerView.post(() -> {
-                            adView = new AdView(activity);
-                            adContainerView.removeAllViews();
-                            adContainerView.addView(adView);
-                            com.google.android.libraries.ads.mobile.sdk.banner.AdSize adSize = Tools.getAdSizeMREC();
-                            BannerAdRequest bannerAdRequest = new BannerAdRequest.Builder(adMobBannerId, adSize).build();
-                            adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
-                                @Override
-                                public void onAdLoaded(@NonNull BannerAd bannerAd) {
-                                    activity.runOnUiThread(() -> adContainerView.setVisibility(View.VISIBLE));
-                                }
+                            com.mersillc.ads.sdk.format.AdNetwork.waitForAdMobInitialization(() -> {
+                                adView = new AdView(activity);
+                                adContainerView.removeAllViews();
+                                adContainerView.addView(adView);
+                                com.google.android.libraries.ads.mobile.sdk.banner.AdSize adSize = Tools.getAdSizeMREC();
+                                BannerAdRequest bannerAdRequest = new BannerAdRequest.Builder(adMobBannerId, adSize).build();
+                                adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
+                                    @Override
+                                    public void onAdLoaded(@NonNull BannerAd bannerAd) {
+                                        activity.runOnUiThread(() -> adContainerView.setVisibility(View.VISIBLE));
+                                    }
 
-                                @Override
-                                public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                                    activity.runOnUiThread(() -> adContainerView.setVisibility(View.GONE));
-                                }
+                                    @Override
+                                    public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+                                        activity.runOnUiThread(() -> adContainerView.setVisibility(View.GONE));
+                                    }
+                                });
                             });
                         });
                         Log.d(TAG, adNetwork + " Banner Ad unit Id : " + adMobBannerId);
@@ -221,21 +227,23 @@ public class MediumRectangleAd {
                     case FAN_BIDDING_AD_MANAGER:
                         FrameLayout googleAdContainerView = activity.findViewById(R.id.google_ad_banner_view_container);
                         googleAdContainerView.post(() -> {
-                            adView = new AdView(activity);
-                            googleAdContainerView.removeAllViews();
-                            googleAdContainerView.addView(adView);
-                            com.google.android.libraries.ads.mobile.sdk.banner.AdSize adSize = Tools.getAdSizeMREC();
-                            BannerAdRequest bannerAdRequest = new BannerAdRequest.Builder(googleAdManagerBannerId, adSize).build();
-                            adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
-                                @Override
-                                public void onAdLoaded(@NonNull BannerAd bannerAd) {
-                                    activity.runOnUiThread(() -> googleAdContainerView.setVisibility(View.VISIBLE));
-                                }
+                            com.mersillc.ads.sdk.format.AdNetwork.waitForAdMobInitialization(() -> {
+                                adView = new AdView(activity);
+                                googleAdContainerView.removeAllViews();
+                                googleAdContainerView.addView(adView);
+                                com.google.android.libraries.ads.mobile.sdk.banner.AdSize adSize = Tools.getAdSizeMREC();
+                                BannerAdRequest bannerAdRequest = new BannerAdRequest.Builder(googleAdManagerBannerId, adSize).build();
+                                adView.loadAd(bannerAdRequest, new AdLoadCallback<BannerAd>() {
+                                    @Override
+                                    public void onAdLoaded(@NonNull BannerAd bannerAd) {
+                                        activity.runOnUiThread(() -> googleAdContainerView.setVisibility(View.VISIBLE));
+                                    }
 
-                                @Override
-                                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                    activity.runOnUiThread(() -> googleAdContainerView.setVisibility(View.GONE));
-                                }
+                                    @Override
+                                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                        activity.runOnUiThread(() -> googleAdContainerView.setVisibility(View.GONE));
+                                    }
+                                });
                             });
                         });
                         break;

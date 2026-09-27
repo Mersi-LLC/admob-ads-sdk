@@ -122,6 +122,10 @@ public class AppOpenAd {
                     case FAN_BIDDING_ADMOB:
                     case GOOGLE_AD_MANAGER:
                     case FAN_BIDDING_AD_MANAGER:
+                        if (!AdNetwork.isAdMobInitialized) {
+                            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> loadAppOpenAd(onShowAdCompleteListener), 500);
+                            return;
+                        }
                         AdRequest adRequest = new AdRequest.Builder(adNetwork.equals(ADMOB) || adNetwork.equals(FAN_BIDDING_ADMOB) ? adMobAppOpenId : adManagerAppOpenId).build();
                         com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd.load(adRequest, new AdLoadCallback<com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd>() {
                             @Override
@@ -211,6 +215,10 @@ public class AppOpenAd {
                     case FAN_BIDDING_ADMOB:
                     case GOOGLE_AD_MANAGER:
                     case FAN_BIDDING_AD_MANAGER:
+                        if (!AdNetwork.isAdMobInitialized) {
+                            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> loadAppOpenAd(), 500);
+                            return;
+                        }
                         AdRequest adRequest = new AdRequest.Builder(adNetwork.equals(ADMOB) || adNetwork.equals(FAN_BIDDING_ADMOB) ? adMobAppOpenId : adManagerAppOpenId).build();
                         com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd.load(adRequest, new AdLoadCallback<com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd>() {
                             @Override
@@ -298,6 +306,10 @@ public class AppOpenAd {
                     case FAN_BIDDING_ADMOB:
                     case GOOGLE_AD_MANAGER:
                     case FAN_BIDDING_AD_MANAGER:
+                        if (!AdNetwork.isAdMobInitialized) {
+                            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> loadBackupAppOpenAd(onShowAdCompleteListener), 500);
+                            return;
+                        }
                         AdRequest adRequest = new AdRequest.Builder(backupAdNetwork.equals(ADMOB) || backupAdNetwork.equals(FAN_BIDDING_ADMOB) ? adMobAppOpenId : adManagerAppOpenId).build();
                         com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd.load(adRequest, new AdLoadCallback<com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd>() {
                             @Override
@@ -383,6 +395,10 @@ public class AppOpenAd {
                     case FAN_BIDDING_ADMOB:
                     case GOOGLE_AD_MANAGER:
                     case FAN_BIDDING_AD_MANAGER:
+                        if (!AdNetwork.isAdMobInitialized) {
+                            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> loadBackupAppOpenAd(), 500);
+                            return;
+                        }
                         AdRequest adRequest = new AdRequest.Builder(backupAdNetwork.equals(ADMOB) || backupAdNetwork.equals(FAN_BIDDING_ADMOB) ? adMobAppOpenId : adManagerAppOpenId).build();
                         com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd.load(adRequest, new AdLoadCallback<com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd>() {
                             @Override

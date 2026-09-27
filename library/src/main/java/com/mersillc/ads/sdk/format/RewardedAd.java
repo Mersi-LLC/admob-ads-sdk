@@ -129,6 +129,10 @@ public class RewardedAd {
         }
 
         public void loadRewardedAd(OnRewardedAdCompleteListener onComplete, OnRewardedAdDismissedListener onDismiss) {
+            if (!com.mersillc.ads.sdk.format.AdNetwork.isAdMobInitialized) {
+                com.mersillc.ads.sdk.format.AdNetwork.waitForAdMobInitialization(() -> loadRewardedAd(onComplete, onDismiss));
+                return;
+            }
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
                 switch (mainAds) {
                     case ADMOB:
@@ -230,6 +234,10 @@ public class RewardedAd {
         }
 
         public void loadRewardedBackupAd(OnRewardedAdCompleteListener onComplete, OnRewardedAdDismissedListener onDismiss) {
+            if (!com.mersillc.ads.sdk.format.AdNetwork.isAdMobInitialized) {
+                com.mersillc.ads.sdk.format.AdNetwork.waitForAdMobInitialization(() -> loadRewardedBackupAd(onComplete, onDismiss));
+                return;
+            }
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
                 switch (backupAds) {
                     case ADMOB:

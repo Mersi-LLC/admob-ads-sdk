@@ -150,6 +150,10 @@ public class InterstitialAd {
         }
 
         public void loadInterstitialAd() {
+            if (!com.mersillc.ads.sdk.format.AdNetwork.isAdMobInitialized) {
+                com.mersillc.ads.sdk.format.AdNetwork.waitForAdMobInitialization(this::loadInterstitialAd);
+                return;
+            }
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
                 switch (adNetwork) {
                     case ADMOB:
@@ -248,6 +252,10 @@ public class InterstitialAd {
         }
 
         public void loadBackupInterstitialAd() {
+            if (!com.mersillc.ads.sdk.format.AdNetwork.isAdMobInitialized) {
+                com.mersillc.ads.sdk.format.AdNetwork.waitForAdMobInitialization(this::loadBackupInterstitialAd);
+                return;
+            }
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
                 switch (backupAdNetwork) {
                     case ADMOB:
@@ -405,6 +413,10 @@ public class InterstitialAd {
         }
 
         public void loadInterstitialAd(OnInterstitialAdDismissedListener onInterstitialAdDismissedListener) {
+            if (!com.mersillc.ads.sdk.format.AdNetwork.isAdMobInitialized) {
+                com.mersillc.ads.sdk.format.AdNetwork.waitForAdMobInitialization(() -> loadInterstitialAd(onInterstitialAdDismissedListener));
+                return;
+            }
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
                 switch (adNetwork) {
                     case ADMOB:
@@ -505,6 +517,10 @@ public class InterstitialAd {
         }
 
         public void loadBackupInterstitialAd(OnInterstitialAdDismissedListener onInterstitialAdDismissedListener) {
+            if (!com.mersillc.ads.sdk.format.AdNetwork.isAdMobInitialized) {
+                com.mersillc.ads.sdk.format.AdNetwork.waitForAdMobInitialization(() -> loadBackupInterstitialAd(onInterstitialAdDismissedListener));
+                return;
+            }
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
                 switch (backupAdNetwork) {
                     case ADMOB:

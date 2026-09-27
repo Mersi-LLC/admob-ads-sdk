@@ -33,6 +33,11 @@ public class AppOpenAdManager {
             return;
         }
 
+        if (!com.mersillc.ads.sdk.format.AdNetwork.isAdMobInitialized) {
+            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> loadAd(context, adManagerAppOpenAdUnitId), 500);
+            return;
+        }
+
         isLoadingAd = true;
         AdRequest request = new AdRequest.Builder(adManagerAppOpenAdUnitId).build();
         AppOpenAd.load(request, new AdLoadCallback<AppOpenAd>() {

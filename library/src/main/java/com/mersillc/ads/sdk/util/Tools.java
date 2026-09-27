@@ -18,15 +18,22 @@ import java.nio.charset.StandardCharsets;
 
 public class Tools {
 
+    @SuppressWarnings("deprecation")
     public static AdSize getAdSize(Activity activity) {
-        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        display.getMetrics(outMetrics);
-        float widthPixels = outMetrics.widthPixels;
-        float density = outMetrics.density;
-        int adWidth = (int) (widthPixels / density);
-        // Step 3 - Get adaptive ad size and return for setting on the ad view.
+        int adWidth;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            android.view.WindowMetrics windowMetrics = activity.getWindowManager().getCurrentWindowMetrics();
+            android.graphics.Rect bounds = windowMetrics.getBounds();
+            float density = activity.getResources().getDisplayMetrics().density;
+            adWidth = (int) (bounds.width() / density);
+        } else {
+            Display display = activity.getWindowManager().getDefaultDisplay();
+            DisplayMetrics outMetrics = new DisplayMetrics();
+            display.getMetrics(outMetrics);
+            float widthPixels = outMetrics.widthPixels;
+            float density = outMetrics.density;
+            adWidth = (int) (widthPixels / density);
+        }
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, adWidth);
     }
 

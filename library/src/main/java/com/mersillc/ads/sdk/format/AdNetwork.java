@@ -15,6 +15,25 @@ import java.util.Map;
 
 public class AdNetwork {
 
+    public static boolean isAdMobInitialized = false;
+
+    public static void waitForAdMobInitialization(Runnable runnable) {
+        if (isAdMobInitialized) {
+            runnable.run();
+        } else {
+            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (isAdMobInitialized) {
+                        runnable.run();
+                    } else {
+                        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(this, 500);
+                    }
+                }
+            }, 500);
+        }
+    }
+
     public static class Initialize {
 
         private static final String TAG = "AdNetwork";
@@ -105,6 +124,7 @@ public class AdNetwork {
                             String appId = adMobAppId != null ? adMobAppId : "";
                             InitializationConfig initConfig = new InitializationConfig.Builder(appId).build();
                             MobileAds.initialize(activity, initConfig, initializationStatus -> {
+                                isAdMobInitialized = true;
                                 Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
                                 for (String adapterClass : statusMap.keySet()) {
                                     AdapterStatus adapterStatus = statusMap.get(adapterClass);

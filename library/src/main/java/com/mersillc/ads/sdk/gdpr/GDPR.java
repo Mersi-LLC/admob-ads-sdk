@@ -29,7 +29,7 @@ public class GDPR {
     ConsentInformation consentInformation;
     ConsentDebugSettings debugSettings;
     ConsentRequestParameters params;
-    AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
+
     ConsentForm consentForm;
     Activity activity;
 
@@ -68,16 +68,10 @@ public class GDPR {
                 consentInformation = UserMessagingPlatform.getConsentInformation(activity);
                 consentInformation.requestConsentInfoUpdate(activity, params, () -> UserMessagingPlatform.loadAndShowConsentFormIfRequired(
                                 activity, loadAndShowError -> {
-                                    if (consentInformation.canRequestAds()) {
-                                        initializeMobileAdsSdk();
-                                    }
                                 }
                         ),
                         requestConsentError -> {
                         });
-                if (consentInformation.canRequestAds()) {
-                    initializeMobileAdsSdk();
-                }
                 break;
             case STARTAPP:
             case APPLOVIN_MAX:
@@ -86,17 +80,6 @@ public class GDPR {
         }
     }
 
-    private void initializeMobileAdsSdk() {
-        if (isMobileAdsInitializeCalled.getAndSet(true)) {
-            return;
-        }
-        new Thread(() -> {
-            InitializationConfig initConfig = new InitializationConfig.Builder("").build();
-            MobileAds.initialize(activity, initConfig, initializationStatus -> {
-                MobileAds.initializeAdapters(new AdapterInitializationConfig.Builder().build());
-            });
-        }).start();
-    }
 
     public void loadForm(Activity activity) {
         UserMessagingPlatform.loadConsentForm(activity, consentForm -> {
