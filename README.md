@@ -119,3 +119,34 @@ NativeAd.Builder nativeAd = new NativeAd.Builder(this)
         .setNativeAdStyle("default") // available styles: default, news, radio, video_small, video_large
         .build();
 ```
+
+### 6. App Open Ad
+```java
+import com.mersillc.ads.sdk.format.AppOpenAd;
+
+AppOpenAd.Builder appOpenAd = new AppOpenAd.Builder(this)
+        .setAdStatus("1")
+        .setAdNetwork("admob") // Use "google_ad_manager" for Ad Manager
+        .setBackupAdNetwork("none")
+        .setAdMobAppOpenId("ca-app-pub-3940256099942544/3419835294") // For Ad Manager, use "/6499/example/app-open"
+        .build();
+
+// To show the ad (e.g., in onStart() of your Activity):
+if (AppOpenAd.isAppOpenAdLoaded) {
+    appOpenAd.show();
+}
+```
+
+### 7. Medium Rectangle Ad
+```java
+import com.mersillc.ads.sdk.format.MediumRectangleAd;
+
+MediumRectangleAd.Builder mediumRectangleAd = new MediumRectangleAd.Builder(this)
+        .setAdStatus("1")
+        .setAdNetwork("admob") // Use "google_ad_manager" for Ad Manager
+        .setBackupAdNetwork("none")
+        .setAdMobBannerId("ca-app-pub-3940256099942544/6300978111")
+        .setPlacementStatus(1)
+        .build();
+```
+*Note: Make sure to include a placeholder for the medium rectangle ad in your XML layout and attach it.*
